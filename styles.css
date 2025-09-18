@@ -1,0 +1,167 @@
+#title{
+    text-align: center;
+    font-size: 100px;
+    font-family: 'Comic Sans MS', Times, serif;
+    color: rgb(0, 0, 0);
+    flex:auto;
+}
+
+#topContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(128, 197, 240);
+    
+}
+
+#inputBox{
+    margin-left: 20%;
+    margin-right:20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    width: 100%;
+    height: 50px;
+}
+
+#ingredientList{
+    width: calc(70% - 10px);
+}
+
+#searchButton, #resetButton{
+    width: calc(15% - 10px);
+    background: white;
+}
+
+#ingredientList, #searchButton, #resetButton{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    height: calc(50px - 10px);
+    margin: 5px;
+    
+}
+
+#ingredientList:hover, #searchButton:hover, #resetButton:hover{
+    background-color: #ccc;
+}
+
+
+#ingredientsAddedBox{
+    margin-left: 20%;
+    margin-right:20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgb(0, 0, 0);
+    background-color: rgb(199, 199, 199);
+    border-radius: 5px;
+    width: 100%;
+    height: 50px;
+}
+
+#bottomContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    width: 100%;
+    height: calc(100vh - 200px); /* subtract the height of the top container */
+    background-color: rgb(84, 141, 175);
+}
+
+#recipeTitle{
+    text-align: center;
+    font-size: 50px;
+    font-family: Times, serif;
+    color: rgb(0, 0, 0);
+    flex:auto;
+}
+
+#recipeTitleBox{
+    margin-left: 25%;
+    margin-right:25%;
+    margin-top: 20px;
+    padding-top:20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid rgb(0, 0, 0);
+    background-color: rgb(63, 67, 119);
+    border-radius: 5px;
+    width: 50%;
+    height: 50px;
+}
+
+#recipeBox{
+    margin-left: 10%;
+    margin-right:10%;
+    margin-top: 20px;
+    padding-top:20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    width: 80%;
+    height: 70vh;
+}
+
+/*Generated recipe cards*/
+.recipe-container {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.recipe-card {
+  margin: 1px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background: #fff;
+  padding: 1rem;
+}
+
+.recipe-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  background-color: #ccc;
+}
+
+.recipe-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.recipe-card h3 {
+  margin: 0.5rem 0;
+}
+
+.recipe-card ul {
+  padding-left: 1.2rem;
+  margin: 0.5rem 0;
+}
+

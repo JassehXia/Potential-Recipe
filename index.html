@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Potential Recipe</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <!-- Top Flex Container -->
+        <div id="topContainer">
+            <h1 id="title">Potential Recipe</h1>
+            <!-- Container for the input box -->
+            <div id="inputBox"> 
+                <select id = "ingredientList"> 
+                    <option value = "0">Select an ingredient</option>
+                    <option value="Chicken">Chicken</option>
+                    <option value="Beef">Beef</option>
+                    <option value="Pork">Pork</option>
+                    <option value="Lamb">Lamb</option>
+                    <option value="Turkey">Turkey</option>
+                    <option value="Rice">Rice</option>
+                </select>
+                <button id="searchButton">Submit</button>
+                <button id="resetButton">Reset</button>
+            </div>
+            <div id = 'ingredientsAddedBox'>
+                <p id="ingredientsAdded">Ingredients Will Appear Here</p>
+            </div>
+        </div>
+
+        <!-- Bottom Flex Container -->
+        <div id="bottomContainer">
+            <div id="recipeTitleBox">
+            <h2 id="recipeTitle">Recipes</h2>
+            </div>
+            <div id="recipeBox">
+                <!--Recipes Should Appear Here-->
+                <p class="recipePlaceHolder">Recipes Will Appear Here</p>
+            </div>
+        </div>
+
+        <script src="mainPage.js"></script>
+    </body>
+</html>
