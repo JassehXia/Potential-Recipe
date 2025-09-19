@@ -13,14 +13,34 @@
             <h1 id="title">Potential Recipe</h1>
             <!-- Container for the input box -->
             <div id="inputBox"> 
-                <select id = "ingredientList"> 
-                    <option value = "0">Select an ingredient</option>
-                    <option value="Chicken">Chicken</option>
-                    <option value="Beef">Beef</option>
-                    <option value="Pork">Pork</option>
-                    <option value="Lamb">Lamb</option>
-                    <option value="Turkey">Turkey</option>
-                    <option value="Rice">Rice</option>
+                <select id="ingredientList">
+                    <option value="0">Select an ingredient</option>
+                    <optgroup label="Meats">
+                        <option value="Chicken">Chicken</option>
+                        <option value="Beef">Beef</option>
+                        <option value="Pork">Pork</option>
+                        <option value="Lamb">Lamb</option>
+                        <option value="Turkey">Turkey</option>
+                    </optgroup>
+                    <optgroup label="Grains">
+                        <option value="Rice">Rice</option>
+                        <option value="Wheat">Wheat</option>
+                        <option value="Barley">Barley</option>
+                        <option value="Oats">Oats</option>
+                    </optgroup>
+                    <optgroup label="Vegetables">
+                        <option value="Carrot">Carrot</option>
+                        <option value="Broccoli">Broccoli</option>
+                        <option value="Spinach">Spinach</option>
+                        <option value="Potato">Potato</option>
+                        <option value="Tomato">Tomato</option>
+                    </optgroup>
+                    <optgroup label="Fruits">
+                        <option value="Apple">Apple</option>
+                        <option value="Banana">Banana</option>
+                        <option value="Orange">Orange</option>
+                        <option value="Grapes">Grapes</option>
+                    </optgroup>
                 </select>
                 <button id="searchButton">Submit</button>
                 <button id="resetButton">Reset</button>
@@ -37,7 +57,7 @@
             </div>
             <div id="recipeBox">
                 <!--Recipes Should Appear Here-->
-                <p class="recipePlaceHolder">Recipes Will Appear Here</p>
+                
             </div>
         </div>
 

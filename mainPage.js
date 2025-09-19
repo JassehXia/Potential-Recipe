@@ -7,90 +7,112 @@ const recipeBox = document.getElementById("recipeBox");
 let selectedIngredients = []; // This will store all user-selected ingredients
 let recipes = [];
 let foundRecipes = [];
-//Sample recipe
-let chickenFriedRice = {
-    title: "Chicken Fried Rice",
-    image: "https://via.placeholder.com/250x150",
-    ingredients: ["Chicken", "Rice"],
-    instructions: "Cook rice. Fry chicken."
-};
 
-let sampleRecipe = {
-    title: "Sample Recipe",
-    image: "https://via.placeholder.com/250x150",
-    ingredients: ["Chicken", "Beef"],
-    instructions: "Sample Instructions"
-};
-recipes.push(chickenFriedRice);
-recipes.push(sampleRecipe);
-
-//Search button | Adds an ingredient to the list and displays it
+//Search Button | Looks Up Recipes
 searchButton.addEventListener("click", () => {
-    const ingredient = ingredientList.value;
-    
-    
+  const ingredient = ingredientList.value;
 
-    // Ignore the default "Select an ingredient" option
-    if (ingredient !== "0" && !selectedIngredients.includes(ingredient)) {
-        selectedIngredients.push(ingredient);
-        ingredientsAdded.textContent = selectedIngredients.join(", ");
-    }
-    ingredientList.value = "0";
+  if (ingredient !== "0" && !selectedIngredients.includes(ingredient)) {
+    selectedIngredients.push(ingredient);
+    ingredientsAdded.textContent = selectedIngredients.join(", ");
+  }
+  ingredientList.value = "0";
 
-    checkIfRecipeExists();
-    
+  checkIfRecipeExists();       // still checks your hardcoded list
+  fetchRecipesFromAPI();       // NEW: fetch live recipes
 });
+
+
+
 
 // Reset button to clear ingredients added
 resetButton.addEventListener("click", () => {
     selectedIngredients = [];
     foundRecipes = [];
     ingredientsAdded.textContent = "Ingredients Will Appear Here";
-    const placeholder = document.createElement("p");
-    placeholder.className = "recipePlaceHolder";
-    placeholder.textContent = "Recipes Will Appear Here";
     recipeBox.innerHTML = "";
-    recipeBox.appendChild(placeholder);
-    
 });
 
 
 function checkIfRecipeExists() {
-    for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i];
-        if (recipe.ingredients.every((ingredient) => selectedIngredients.includes(ingredient)) && !foundRecipes.includes(recipe)) {
-            foundRecipes.push(recipe);
-            createRecipeCard(recipe)
-            const placeholder = recipeBox.querySelector(".recipePlaceHolder");
-            if (placeholder) {
-                placeholder.remove();
-            }
-            return;
-        }
-        else{
-            //recipeBox.textContent = "No matching recipe found.";
-        }
-    }  
+  const pantryItems = ["salt","pepper","oil","flour","water","sugar"];
+  recipeBox.innerHTML = "";      // clear previous
+  foundRecipes = [];
+
+  recipes.forEach(recipe => {
+    const match =
+      recipe.ingredients.every(ing =>
+        selectedIngredients.includes(ing) || pantryItems.includes(ing.toLowerCase())
+      ) &&
+      selectedIngredients.every(ing =>
+        recipe.ingredients.includes(ing) || pantryItems.includes(ing.toLowerCase())
+      );
+
+    if (match && !foundRecipes.includes(recipe)) {
+      foundRecipes.push(recipe);
+      createRecipeCard(recipe);
+    }
+  });
 }
+
 
 //Recipe Cards
 function createRecipeCard(recipe) {
   const card = document.createElement("div");
   card.className = "recipe-card";
 
+  // wrap the card’s inner content in an <a> tag
   card.innerHTML = `
-    <!--<img src="${recipe.image}" alt="${recipe.name}">--!>
-    <h3>${recipe.title}</h3>
-    <h4>Ingredients:</h4>
-    <ul>
-      ${recipe.ingredients.map(item => `<li>${item}</li>`).join("")}
-    </ul>
-    <h4>Instructions:</h4>
-    <p>${recipe.instructions}</p>
+    <a href="${recipe.link || recipe.instructions}" target="_blank" class="recipe-link">
+      <img src="${recipe.image}" alt="${recipe.title}" />
+      <h3>${recipe.title}</h3>
+      <h4>Ingredients:</h4>
+      <ul>
+        ${recipe.ingredients.map(item => `<li>${item}</li>`).join("")}
+      </ul>
+    </a>
   `;
 
   recipeBox.appendChild(card);
 }
+
+//API SHENANIGANS
+async function fetchRecipesFromAPI(numRecipes = 5) {
+  const apiKey = "API KEY"; // <-- Replace with your real key
+  const query = selectedIngredients.join(",");
+  const url =
+    `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${query}&number=50&apiKey=${apiKey}`;
+    // ask for more (e.g., 50) so we have a pool to randomize
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    // --- Shuffle results ---
+    const shuffled = data.sort(() => Math.random() - 0.5);
+
+    // --- Pick the first numRecipes after shuffle ---
+    shuffled.slice(0, numRecipes).forEach(r => {
+      const recipeObj = {
+        title: r.title,
+        image: r.image,
+        ingredients: r.usedIngredients.map(i => i.name),
+        link: `https://spoonacular.com/recipes/${r.title.replace(/\s+/g,'-')}-${r.id}`
+    };
+
+
+      if (!foundRecipes.find(fr => fr.title === recipeObj.title)) {
+        foundRecipes.push(recipeObj);
+        createRecipeCard(recipeObj);
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching recipes:", error);
+  }
+};
+
+
+
 
 
 
